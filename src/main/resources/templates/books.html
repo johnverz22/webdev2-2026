@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Book List</title>
+    <title>Books</title>
 </head>
 
 <body>
@@ -16,33 +16,34 @@
     <main>
         <h1>Books</h1>
 
-        <!-- Show this message only when the list is empty -->
-        <p th:if="${books.isEmpty()}">
-            No books found.
-        </p>
+        <div th:if="${books.isEmpty()}">
+            <p>No books have been added yet.</p>
+        </div>
 
-        <!-- The list is shown when books exist -->
-        <ul th:unless="${books.isEmpty()}">
+        <div th:unless="${books.isEmpty()}">
 
-            <!-- Repeat this <li> once for every book -->
-            <li th:each="book : ${books}">
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                    </tr>
+                </thead>
 
-                <strong th:text="${book.title}">
-                    Sample Title
-                </strong>
+                <tbody>
+                    <tr th:each="book : ${books}">
+                        <td th:text="${book.title}">
+                            Book Title
+                        </td>
+                        <td th:text="${book.author}">
+                            Author
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-                <span>
-                    by
-                </span>
-
-                <span th:text="${book.author.name}">
-                    Sample Author
-                </span>
-
-            </li>
-
-        </ul>
+        </div>
     </main>
-</body>
 
+</body>
 </html>
