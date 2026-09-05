@@ -9,35 +9,40 @@
 
 <body>
 
-    <h1>Books</h1>
+    <header>
+        <div th:replace="~{fragments/navbar :: navbar}"></div>
+    </header>
 
-    <!-- Show this message only when the list is empty -->
-    <p th:if="${books.isEmpty()}">
-        No books found.
-    </p>
+    <main>
+        <h1>Books</h1>
 
-    <!-- The list is shown when books exist -->
-    <ul th:unless="${books.isEmpty()}">
+        <!-- Show this message only when the list is empty -->
+        <p th:if="${books.isEmpty()}">
+            No books found.
+        </p>
 
-        <!-- Repeat this <li> once for every book -->
-        <li th:each="book : ${books}">
+        <!-- The list is shown when books exist -->
+        <ul th:unless="${books.isEmpty()}">
 
-            <strong th:text="${book.title}">
-                Sample Title
-            </strong>
+            <!-- Repeat this <li> once for every book -->
+            <li th:each="book : ${books}">
 
-            <span>
-                by
-            </span>
+                <strong th:text="${book.title}">
+                    Sample Title
+                </strong>
 
-            <span th:text="${book.author.name}">
-                Sample Author
-            </span>
+                <span>
+                    by
+                </span>
 
-        </li>
+                <span th:text="${book.author.name}">
+                    Sample Author
+                </span>
 
-    </ul>
+            </li>
 
+        </ul>
+    </main>
 </body>
 
 </html>
