@@ -32,9 +32,20 @@
                        th:field="*{author}">
             </div>
 
-            <button type="submit">Save</button>
-        </form>
+            <div>
+                <label for="year">Year:</label>
+                <input id="year"
+                       th:field="*{year}">
 
+                <span th:errors="*{year}" style="display: block;">
+                    Error message
+                </span>
+            </div>
+
+            <button type="submit">Save</button>
+
+        </form>
     </main>
+
 </body>
 </html>
