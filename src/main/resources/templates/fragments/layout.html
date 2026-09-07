@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!--
+  WEEK 4 CALLBACK: Template Fragments & Layout Reuse.
+
+  This file has no page of its own - it only exists to hold reusable
+  pieces (header, footer) that other pages pull in with th:replace.
+  Change the nav links here once, and every page that includes this
+  fragment picks up the change automatically.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<header th:fragment="header">
+    <nav class="navbar">
+        <a th:href="@{/books}" class="brand">📚 Book Manager</a>
+        <a th:href="@{/books/new}" class="nav-link">+ Add Book</a>
+    </nav>
+</header>
+
+<footer th:fragment="footer">
+    <p class="footer-text">
+        WEBDEV2 &middot; Week 5 Demo &middot;
+        Controller&ndash;Service&ndash;Repository + DTOs + Validation + Error Handling
+    </p>
+</footer>
+
+</body>
+</html>

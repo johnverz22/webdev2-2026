@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Books &middot; Book Manager</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/layout :: header}"></div>
+
+<main class="container">
+    <h1>All Books</h1>
+
+    <p th:if="${#lists.isEmpty(books)}" class="empty-state">
+        No books yet. <a th:href="@{/books/new}">Add the first one.</a>
+    </p>
+
+    <input th:unless="${#lists.isEmpty(books)}"
+           type="text" id="book-search" class="search-input"
+           placeholder="Filter by title or author...">
+
+    <table th:unless="${#lists.isEmpty(books)}" class="book-table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.title}">Title</td>
+            <td th:text="${book.author}">Author</td>
+            <td>
+                <a th:href="@{/books/{id}(id=${book.id})}">View</a>
+                &middot;
+                <a th:href="@{/books/{id}/summary(id=${book.id})}">Summary</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

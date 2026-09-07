@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${book.title} + ' · Book Manager'">Book Detail</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/layout :: header}"></div>
+
+<main class="container">
+    <h1 th:text="${book.title}">Book Title</h1>
+    <p class="byline">by <span th:text="${book.author}">Author Name</span></p>
+
+    <p>
+        <a th:href="@{/books/{id}/summary(id=${book.id})}">View summary version (DTO) &rarr;</a>
+    </p>
+    <p><a th:href="@{/books}">&larr; Back to all books</a></p>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+
+</body>
+</html>

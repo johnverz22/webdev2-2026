@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+narration_code_walkthrough.md
+script.md

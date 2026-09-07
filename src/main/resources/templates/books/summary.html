@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Summary &middot; Book Manager</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/layout :: header}"></div>
+
+<main class="container">
+    <!--
+      TOPIC 2 IN ACTION: `summary` here is a BookSummaryDto, not a Book.
+      It has exactly two fields available: title and authorName.
+      There is no `id`, no way to accidentally render an internal-only
+      field, because this object simply never carries one.
+    -->
+    <div class="dto-card">
+        <span class="badge">DTO view</span>
+        <h1 th:text="${summary.title}">Title</h1>
+        <p class="byline">by <span th:text="${summary.authorName}">Author</span></p>
+    </div>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+
+</body>
+</html>
