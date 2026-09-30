@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!-- Detail page: variable expressions (Week 4 ${...}) plus the Topic 4 sell form. -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="${product.name} + ' — Week 8 demo'">Product — Week 8 demo</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <header class="page-header">
+        <h1 class="page-title" th:text="${product.name}">Espresso Beans</h1>
+        <p class="page-subtitle">Product details and stock management.</p>
+    </header>
+
+    <p class="alert alert-success" th:if="${message}" th:text="${message}"></p>
+
+    <div class="card-grid">
+        <main class="card">
+            <ul class="detail-list">
+                <li><span class="label">Price</span> <span class="price" th:text="${product.price}">12.50</span></li>
+                <li><span class="label">Category</span> <span th:text="${product.category}">Beverages</span></li>
+                <li><span class="label">Stock</span> <span th:text="${product.stock}">100</span></li>
+                <li><span class="label">Status</span>
+                    <span class="badge badge-success" th:if="${product.active}">Active</span>
+                    <span class="badge badge-muted" th:unless="${product.active}">Inactive</span>
+                </li>
+            </ul>
+        </main>
+
+        <div class="card-grid" style="grid-template-columns: 1fr; gap: 1rem;">
+            <section class="card sell-card">
+                <h2>Sell (Topic 4: one transaction)</h2>
+                <p class="alert alert-error" th:if="${sellError}" th:text="${sellError}"></p>
+                <form class="inline-form" th:action="@{/products/{id}/sell(id=${product.id})}" method="post">
+                    <input type="number" name="qty" value="1" min="1"/>
+                    <button class="btn btn-secondary btn-small" type="submit">Sell</button>
+                </form>
+            </section>
+
+            <section class="card actions-card">
+                <h2>Manage</h2>
+                <div class="form-actions">
+                    <a class="btn btn-small" th:href="@{/products/{id}/edit(id=${product.id})}">Edit</a>
+                    <form th:action="@{/products/{id}/delete(id=${product.id})}" method="post"
+                          onsubmit="return confirm('Delete this product?');" style="display:inline">
+                        <button class="btn btn-danger btn-small" type="submit">Delete</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <p class="form-actions"><a class="btn btn-ghost btn-small" th:href="@{/products}">← Back to catalog</a></p>
+</div>
+
+<footer class="footer">Week 8 JPA demo — product detail</footer>
+</body>
+</html>

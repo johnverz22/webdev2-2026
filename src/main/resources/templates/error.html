@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!-- Friendly error page (Topic 5: never leak a stack trace to the user).
+     GlobalExceptionHandler fills in status, title, message and hint.
+     The Elvis fallbacks keep the page readable on the rare path where Spring's
+     own error handling renders it without those attributes. -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="(${status} ?: 'Error') + ' — ' + (${title} ?: 'Something went wrong')">Error</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <header class="page-header">
+        <h1 class="page-title" th:text="(${status} ?: 'Error') + ' — ' + (${title} ?: 'Something went wrong')">Error</h1>
+    </header>
+
+    <main class="card">
+        <p class="alert alert-error" th:text="${message} ?: 'The page did not work as expected.'">Something went wrong.</p>
+        <p class="muted" th:if="${hint}"><em th:text="${hint}"></em></p>
+        <p class="form-actions"><a class="btn btn-primary btn-small" th:href="@{/products}">Back to catalog</a></p>
+    </main>
+</div>
+
+<footer class="footer">Week 8 JPA demo</footer>
+</body>
+</html>

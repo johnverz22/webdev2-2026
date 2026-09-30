@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!-- Topic 4 rollback experiment as a page. Submit two rows where the second
+     reuses a name: the UNIQUE constraint fires and NEITHER row is saved.
+     Then check the console — the first INSERT printed, then was undone. -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Batch demo — Week 8 demo</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <header class="page-header">
+        <h1 class="page-title">Batch create (atomicity demo)</h1>
+        <p class="page-subtitle">Both rows save together or not at all. To see a rollback, submit the form
+            with the <strong>same name</strong> in both rows.</p>
+    </header>
+
+    <main class="card">
+        <p class="alert alert-error" th:if="${batchError}" th:text="${batchError}"></p>
+
+        <form class="form-card two-col" th:object="${form}" th:action="@{/products/batch}" method="post">
+            <div class="field">
+                <label>Row one — Name</label>
+                <input type="text" th:field="*{first.name}"/>
+            </div>
+            <div class="field">
+                <label>Row one — Price</label>
+                <input type="number" step="0.01" th:field="*{first.price}"/>
+            </div>
+            <div class="field">
+                <label>Row one — Category</label>
+                <input type="text" th:field="*{first.category}"/>
+            </div>
+            <div class="field">
+                <label>Row one — Stock</label>
+                <input type="number" th:field="*{first.stock}"/>
+            </div>
+            <div class="field">
+                <label>Row two — Name</label>
+                <input type="text" th:field="*{second.name}"/>
+            </div>
+            <div class="field">
+                <label>Row two — Price</label>
+                <input type="number" step="0.01" th:field="*{second.price}"/>
+            </div>
+            <div class="field">
+                <label>Row two — Category</label>
+                <input type="text" th:field="*{second.category}"/>
+            </div>
+            <div class="field">
+                <label>Row two — Stock</label>
+                <input type="number" th:field="*{second.stock}"/>
+            </div>
+
+            <div class="form-actions full">
+                <button class="btn btn-primary" type="submit">Save batch</button>
+                <a class="btn btn-ghost" th:href="@{/products}">Back to catalog</a>
+            </div>
+        </form>
+    </main>
+</div>
+
+<footer class="footer">Week 8 JPA demo — batch atomicity</footer>
+</body>
+</html>

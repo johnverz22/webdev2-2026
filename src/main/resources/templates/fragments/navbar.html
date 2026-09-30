@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<!-- Shared navigation bar (Week 4 fragments pattern: define once with
+     th:fragment, pull into every page with th:replace). -->
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="navbar" class="site-nav">
+    <div class="nav-inner">
+        <a th:href="@{/products}" class="nav-brand">Week 8 <span>JPA demo</span></a>
+        <div class="nav-links">
+            <a th:href="@{/products}">Catalog</a>
+            <a th:href="@{/products/new}">New product</a>
+            <a th:href="@{/products/batch}">Batch demo</a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

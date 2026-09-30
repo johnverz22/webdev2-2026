@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!-- Catalog page. One template serves the full list AND every Topic 3 filtered
+     view — the controller only changes the "heading" and "products" attributes. -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="${heading} + ' — Week 8 demo'">Catalog — Week 8 demo</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+    <header class="page-header">
+        <h1 class="page-title" th:text="${heading}">All products</h1>
+        <p class="page-subtitle">Browse, search and filter the product catalog.</p>
+    </header>
+
+    <main class="card">
+        <!-- One-shot confirmation after a redirect (create / update / delete / batch). -->
+        <p class="alert alert-success" th:if="${message}" th:text="${message}"></p>
+
+        <!-- Topic 3 demos: each form hits a different repository query method. -->
+        <div class="toolbar">
+            <form class="filter-form" th:action="@{/products/search}" method="get">
+                <input type="text" name="keyword" placeholder="Search name…"/>
+                <button class="btn btn-primary btn-small" type="submit">Search</button>
+            </form>
+            <form class="filter-form" th:action="@{/products/cheap}" method="get">
+                <input type="number" step="0.01" name="max" placeholder="Max price…"/>
+                <button class="btn btn-primary btn-small" type="submit">Cheaper than</button>
+            </form>
+            <form class="filter-form" th:action="@{/products/category}" method="get">
+                <input type="text" name="name" placeholder="Category…"/>
+                <button class="btn btn-primary btn-small" type="submit">By category</button>
+            </form>
+        </div>
+
+        <p class="empty-state" th:if="${#lists.isEmpty(products)}">No products match. Try clearing the filters.</p>
+
+        <div class="table-wrap" th:unless="${#lists.isEmpty(products)}">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Stock</th>
+                    <th>Active</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p : ${products}">
+                    <td th:text="${p.name}">Espresso Beans</td>
+                    <td class="price" th:text="${p.price}">12.50</td>
+                    <td th:text="${p.category}">Beverages</td>
+                    <td th:text="${p.stock}">100</td>
+                    <td>
+                        <span class="badge badge-success" th:if="${p.active}">Active</span>
+                        <span class="badge badge-muted" th:unless="${p.active}">Inactive</span>
+                    </td>
+                    <td><a class="btn btn-ghost btn-small" th:href="@{/products/{id}(id=${p.id})}">Open</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="form-actions"><a class="btn btn-small" th:href="@{/products}">Show all</a></p>
+    </main>
+</div>
+
+<footer class="footer">Week 8 JPA demo — catalog</footer>
+</body>
+</html>
